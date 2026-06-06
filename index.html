@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Riwak Coffeeshop | رِواق</title>
+<link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500&family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --cream: #FAF6EF;
+    --beige: #F0E8D8;
+    --warm-tan: #D4BFA0;
+    --brown-light: #A07850;
+    --brown: #7A5230;
+    --brown-dark: #4A2E14;
+    --accent: #C8955A;
+    --text-dark: #2A1A0A;
+    --text-mid: #5A3E28;
+    --text-muted: #8A7060;
+    --white: #FFFFFF;
+    --shadow: 0 4px 24px rgba(74,46,20,0.10);
+    --shadow-sm: 0 2px 12px rgba(74,46,20,0.08);
+    --radius: 16px;
+    --radius-sm: 10px;
+    --transition: 0.3s cubic-bezier(.4,0,.2,1);
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--text-dark); min-height: 100vh; overflow-x: hidden; }
+  img { display: block; max-width: 100%; }
+  a { text-decoration: none; color: inherit; }
+
+  /* ── TOP BAR ── */
+  .topbar {
+    background: var(--brown-dark);
+    color: var(--warm-tan);
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 24px;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .topbar-left { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+  .topbar a { color: var(--warm-tan); display: flex; align-items: center; gap: 6px; transition: color var(--transition); }
+  .topbar a:hover { color: var(--cream); }
+  .topbar span { display: flex; align-items: center; gap: 6px; }
+  .topbar svg { width: 15px; height: 15px; flex-shrink: 0; }
+  .lang-btn {
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 20px;
+    padding: 4px 14px;
+    font-size: 12px;
+    color: var(--cream);
+    cursor: pointer;
+    font-family: inherit;
+    transition: background var(--transition);
+    flex-shrink: 0;
+  }
+  .lang-btn:hover { background: rgba(255,255,255,0.22); }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--white);
+    padding: 16px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 1px solid var(--beige);
+    box-shadow: var(--shadow-sm);
+  }
+  .logo { display: flex; align-items: center; gap: 16px; }
+  .logo img {
+    width: 110px;
+    height: 110px;
+    border-radius: 16px;
+    object-fit: contain;
+    flex-shrink: 0;
+    border: 2.5px solid var(--warm-tan);
+    box-shadow: 0 2px 12px rgba(74,46,20,0.18);
+    background: white;
+    padding: 3px;
+  }
+  .logo-text .name-en { font-family: 'Kanit', sans-serif; font-size: 33px; font-weight: 600; color: #661B07; letter-spacing: 0.2px; line-height: 1.1; }
+  .contact-btn {
+    background: var(--brown-dark);
+    color: var(--cream);
+    border: none;
+    border-radius: 24px;
+    padding: 10px 20px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: inherit;
+    transition: background var(--transition), transform var(--transition);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .contact-btn:hover { background: var(--brown); transform: translateY(-1px); }
+  .contact-btn svg { width: 16px; height: 16px; }
+
+  /* ── HERO ── */
+  .hero-split {
+    display: flex;
+    height: 62vh;
+    min-height: 420px;
+    max-height: 600px;
+  }
+  .hero-left {
+    flex: 0.65;
+    background: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+  .hero-left img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    max-width: 340px;
+  }
+  .hero-images {
+    flex: 1.35;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-images .slide {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transform: scale(1.04);
+    transition: opacity 0.8s ease, transform 4s ease;
+  }
+  .hero-images .slide.active { opacity: 1; transform: scale(1); }
+
+  /* ── FILTER BAR ── */
+  .filter-bar {
+    background: var(--white);
+    padding: 16px 24px;
+    position: sticky;
+    top: 89px;
+    z-index: 90;
+    border-bottom: 1px solid var(--beige);
+  }
+  .search-wrap { position: relative; max-width: 480px; margin-bottom: 14px; }
+  .search-wrap svg { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); width: 17px; height: 17px; stroke: var(--text-muted); pointer-events: none; }
+  [dir="rtl"] .search-wrap svg { left: auto; right: 14px; }
+  #search-input {
+    width: 100%;
+    padding: 10px 16px 10px 42px;
+    border: 1.5px solid var(--beige);
+    border-radius: 24px;
+    font-size: 14px;
+    font-family: inherit;
+    background: var(--cream);
+    color: var(--text-dark);
+    outline: none;
+    transition: border-color var(--transition);
+  }
+  [dir="rtl"] #search-input { padding: 10px 42px 10px 16px; }
+  #search-input:focus { border-color: var(--brown-light); }
+  .categories { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 2px; scrollbar-width: none; }
+  .categories::-webkit-scrollbar { display: none; }
+  .cat-btn {
+    flex-shrink: 0;
+    padding: 7px 16px;
+    border-radius: 20px;
+    border: 1.5px solid var(--beige);
+    background: var(--white);
+    color: var(--text-mid);
+    font-size: 13px;
+    font-weight: 500;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all var(--transition);
+    white-space: nowrap;
+  }
+  .cat-btn:hover { border-color: var(--warm-tan); background: var(--beige); }
+  .cat-btn.active { background: var(--brown-dark); border-color: var(--brown-dark); color: var(--cream); }
+
+  /* ── MENU ── */
+  main { padding: 28px 24px 48px; max-width: 1100px; margin: 0 auto; }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(20px, 4vw, 30px);
+    font-weight: 500;
+    color: var(--brown-dark);
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--beige);
+    letter-spacing: 0.5px;
+  }
+  .menu-section { margin-bottom: 36px; }
+  .menu-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
+
+  /* ── CARD ── */
+  .menu-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    border: 1px solid var(--beige);
+    display: flex;
+    align-items: stretch;
+    overflow: hidden;
+    transition: transform var(--transition), box-shadow var(--transition);
+    box-shadow: var(--shadow-sm);
+    min-height: 110px;
+  }
+  .menu-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+  .menu-card.hidden { display: none; }
+  .card-info {
+    flex: 1;
+    padding: 14px 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-width: 0;
+    gap: 6px;
+  }
+  .card-name { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 600; color: var(--brown-dark); line-height: 1.2; }
+  .card-desc { font-size: 12px; color: var(--text-muted); line-height: 1.55; flex: 1; }
+  .card-price { font-size: 13.5px; font-weight: 500; color: var(--accent); letter-spacing: 0.3px; }
+  .card-img-wrap { width: 110px; flex-shrink: 0; overflow: hidden; background: var(--beige); }
+  .card-img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+  .menu-card:hover .card-img-wrap img { transform: scale(1.06); }
+
+  /* ── NO IMAGE CARD ── */
+  .menu-card.no-img .card-img-wrap { display: none; }
+  .menu-card.no-img { background: linear-gradient(135deg, var(--white) 60%, #f5ede0); }
+
+  /* ── SHISHA ICON placeholder ── */
+  .shisha-icon {
+    width: 110px;
+    flex-shrink: 0;
+    background: linear-gradient(135deg, var(--beige), var(--warm-tan));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    opacity: 0.6;
+  }
+
+  /* ── FOOTER ── */
+  footer { background: var(--brown-dark); color: var(--warm-tan); padding: 40px 24px 24px; }
+  .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 28px; max-width: 900px; margin: 0 auto 28px; }
+  .footer-col h3 { font-family: 'Cormorant Garamond', serif; font-size: 17px; font-weight: 500; color: var(--cream); margin-bottom: 12px; }
+  .footer-col p,
+  .footer-col a { font-size: 14px; line-height: 2; color: var(--warm-tan); display: flex; align-items: center; gap: 8px; }
+  .footer-col a:hover { color: var(--cream); }
+  .footer-col svg { width: 15px; height: 15px; flex-shrink: 0; }
+  .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 18px; text-align: center; font-size: 12px; color: var(--text-muted); }
+  .footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 22px; color: var(--cream); margin-bottom: 8px; }
+  .footer-logo span { font-family: 'Aref Ruqaa', serif; font-size: 24px; font-weight: 700; color: white; margin-right: 6px; }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .menu-card.visible { animation: fadeInUp 0.32s ease both; }
+
+  /* ════════════════════════════════════
+     MOBILE  (≤ 640px)
+  ════════════════════════════════════ */
+  @media (max-width: 640px) {
+
+    /* Top bar */
+    .topbar { padding: 7px 14px; font-size: 11px; gap: 6px; flex-wrap: nowrap; }
+    .topbar-left { gap: 4px; flex-wrap: nowrap; overflow: hidden; }
+
+    /* Header */
+    header { padding: 10px 14px; gap: 10px; top: 0; }
+    .logo img { width: 64px; height: 64px; border-radius: 12px; }
+    .logo-text .name-en { font-size: 22px; }
+    .contact-btn { padding: 8px 14px; font-size: 12px; gap: 6px; }
+    .contact-btn span { display: none; }
+    .contact-btn svg { width: 18px; height: 18px; }
+
+    /* Hero: compact side-by-side strip */
+    .hero-split {
+      flex-direction: row;
+      height: 200px;
+      min-height: unset;
+      max-height: unset;
+      overflow: hidden;
+    }
+    .hero-left {
+      flex: 0 0 30%;
+      height: 100%;
+      padding: 4px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .hero-images {
+      flex: 0 0 70%;
+      height: 100%;
+      overflow: hidden;
+    }
+    .hero-left img {
+      height: 100%;
+      width: 100%;
+      object-fit: contain;
+    }
+    .hero-images .slide {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Filter bar */
+    .filter-bar { padding: 12px 14px; top: 65px; }
+    .search-wrap { margin-bottom: 10px; }
+    #search-input { font-size: 13px; padding: 9px 14px 9px 38px; }
+    [dir="rtl"] #search-input { padding: 9px 38px 9px 14px; }
+    .cat-btn { padding: 6px 13px; font-size: 12px; }
+
+    /* Main */
+    main { padding: 20px 14px 40px; }
+    .section-title { font-size: 20px; margin-bottom: 12px; }
+    .menu-section { margin-bottom: 28px; }
+
+    /* Grid: single column */
+    .menu-grid { grid-template-columns: 1fr; gap: 10px; }
+
+    /* Card: compact horizontal layout */
+    .menu-card { min-height: 88px; border-radius: 12px; }
+    .card-img-wrap { width: 88px; min-width: 88px; }
+    .shisha-icon { width: 88px; min-width: 88px; font-size: 26px; }
+    .card-info { padding: 11px 12px; gap: 4px; }
+    .card-name { font-size: 15px; }
+    .card-desc { font-size: 11.5px; line-height: 1.5;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .card-price { font-size: 12.5px; }
+
+    /* Footer */
+    footer { padding: 28px 14px 20px; }
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 20px; }
+  }
+
+  /* ════════════════════════════════════
+     TABLET  (641 – 900px)
+  ════════════════════════════════════ */
+  @media (min-width: 641px) and (max-width: 900px) {
+    .hero-split { height: 46vh; min-height: 320px; }
+    .menu-grid { grid-template-columns: repeat(2, 1fr); }
+    main { padding: 24px 20px 40px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+<div class="topbar-left">
+  <a href="https://maps.app.goo.gl/ver4BCym97kcoeZz5" target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
+      <circle cx="12" cy="9" r="2.5"/>
+    </svg>
+    <span data-en="Next to Bayan School - Abou Samra" data-ar="بجانب مدرسة بيان - أبو سمرا">
+      Next to Bayan School - Abou Samra - click here
+    </span>
+  </a>
+</div>
+  <button class="lang-btn" id="lang-toggle" onclick="toggleLang()">العربية</button>
+</div>
+
+<!-- HEADER -->
+<header>
+  <div class="logo">
+    <img src="logo.png" alt="Riwak Coffeeshop Logo" />
+    <div class="logo-text">
+      <div class="name-en">Riwak Coffeeshop</div>
+    </div>
+  </div>
+  <a href="https://wa.me/9670505763" target="_blank" rel="noopener">
+    <button class="contact-btn">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.125.558 4.122 1.532 5.855L.057 23.155a1 1 0 001.242 1.215l5.476-1.437A11.955 11.955 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.91 0-3.694-.504-5.24-1.383l-.368-.216-3.814 1.001.994-3.7-.236-.381A9.952 9.952 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+      <span data-en="Contact Us" data-ar="تواصل معنا">Contact Us</span>
+    </button>
+  </a>
+</header>
+
+<!-- HERO -->
+<div class="hero-split">
+  <div class="hero-left">
+    <img src="riwak-slogan.png" alt="Riwak Slogan" />
+  </div>
+  <div class="hero-images">
+    <img src="riwak-cupss.jpeg" class="slide" />
+    <img src="riwakinterior.jpeg" class="slide active"  />
+    <img src="riwak-interior2.jpeg" class="slide" />
+    <img src="riwak-interior3.jpeg" class="slide" />
+    <img src="riwak-cup1.jpeg" class="slide" />
+
+    <img src="riwak-interior4.jpeg" class="slide" />
+  </div>
+</div>
+
+<!-- FILTER BAR -->
+<div class="filter-bar">
+  <div class="search-wrap">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    <input type="text" id="search-input" placeholder="Search drinks..." oninput="filterItems()" autocomplete="off" />
+  </div>
+  <div class="categories" id="cat-row">
+    <button class="cat-btn active" data-cat="all"        onclick="setCategory('all',this)"        data-en="All Items"       data-ar="الكل">All Items</button>
+    <button class="cat-btn"        data-cat="hot"        onclick="setCategory('hot',this)"        data-en="Hot Coffee"      data-ar="قهوة ساخنة">Hot Coffee</button>
+    <button class="cat-btn"        data-cat="cold"       onclick="setCategory('cold',this)"       data-en="Iced Coffee"     data-ar="قهوة باردة">Iced Coffee</button>
+    <button class="cat-btn"        data-cat="matcha"     onclick="setCategory('matcha',this)"     data-en="Matcha"          data-ar="ماتشا">Matcha</button>
+    <button class="cat-btn"        data-cat="frappes"    onclick="setCategory('frappes',this)"    data-en="Frappes"         data-ar="فرابيه">Frappes</button>
+    <button class="cat-btn"        data-cat="milkshakes" onclick="setCategory('milkshakes',this)" data-en="Milkshakes"      data-ar="ميلك شيك">Milkshakes</button>
+    <button class="cat-btn"        data-cat="smoothies"  onclick="setCategory('smoothies',this)"  data-en="Smoothies"       data-ar="سموذي">Smoothies</button>
+    <button class="cat-btn"        data-cat="sweets"     onclick="setCategory('sweets',this)"     data-en="Desserts"        data-ar="حلويات">Desserts</button>
+    <button class="cat-btn"        data-cat="shisha"     onclick="setCategory('shisha',this)"     data-en="Shisha"          data-ar="شيشة">Shisha</button>
+  </div>
+</div>
+
+<main id="menu-main">
+
+  <!-- ── HOT DRINKS ── -->
+  <div class="menu-section" data-section="hot">
+    <h2 class="section-title" data-en="Hot Coffee" data-ar="قهوة ساخنة">Hot Coffee</h2>
+    <div class="menu-grid">
+
+      <div class="menu-card visible" data-cat="hot" data-name="espresso">
+        <div class="card-info">
+          <div class="card-name" data-en="Espresso" data-ar="إسبريسو">Espresso</div>
+          <div class="card-desc" data-en="Pure espresso shot — strong, bold, and intense." data-ar="شوت إسبريسو نقي — قوي ومكثف.">Pure espresso shot — strong, bold, and intense.</div>
+          <div class="card-price">100,000 LL</div>
+        </div>
+        <div class="card-img-wrap"><img src="espresso.jpeg" alt="Espresso" loading="lazy" /></div>
+      </div>
+
+      <div class="menu-card visible" data-cat="hot" data-name="espresso doppio double">
+        <div class="card-info">
+          <div class="card-name" data-en="Espresso Doppio" data-ar="إسبريسو دبل">Espresso Doppio</div>
+          <div class="card-desc" data-en="Double espresso shot — stronger, richer, and more intense." data-ar="شوتين إسبريسو — أقوى وأغنى.">Double espresso shot — stronger, richer, and more intense.</div>
+          <div class="card-price">180,000 LL</div>
+        </div>
+        <div class="card-img-wrap"><img src="espressodoppio.jpeg" alt="Espresso Doppio" loading="lazy" /></div>
+      </div>
+
+      <div class="menu-card visible" data-cat="hot" data-name="macchiato">
+        <div class="card-info">
+          <div class="card-name" data-en="Macchiato" data-ar="ماكياتو">Macchiato</div>
+          <div class="card-desc" data-en="Espresso marked with a touch of frothy milk — bold with a soft edge." data-ar="إسبريسو مع لمسة من الحليب المرغى — قوي بلمسة ناعمة.">Espresso marked with a touch of frothy milk — bold with a soft edge.</div>
+          <div class="card-price">200,000 LL</div>
+        </div>
+        <div class="card-img-wrap"><img src="macchiato.jpeg" alt="Macchiato" loading="lazy" /></div>
+      </div>
+
+      <div class="menu-card visible" data-cat="hot" data-name="v60 pour over filter coffee">
+        <div class="card-info">
+          <div class="card-name" data-en="V60" data-ar="V60">V60</div>
+          <div class="card-desc" data-en="Slow brewed filter coffee — clean, light, and aromatic." data-ar="قهوة V60 بالتقطير — خفيفة ونظيفة وعطرية.">Slow brewed filter coffee — clean, light, and aromatic.</div>
+          <div class="card-price">250,000 LL</div>
+        </div>
+        <div class="card-img-wrap"><img src="v60.jpeg" alt="V60 Pour Over" loading="lazy" /></div>
+      </div>
+
+      <div class="menu-card visible" data-cat="hot" data-name="hot americano black coffee">
+        <div class="card-info">
+          <div class="card-name" data-en="Hot Americano" data-ar="أمريكانو ساخن">Hot Americano</div>
+          <div class="card-desc" data-en="Bold black coffee with a clean finish." data-ar="قهوة سوداء قوية بنكهة نظيفة.">Bold black coffee with a clean finish.</div>
+          <div class="card-price">100,000 LL</div>
+        </div>
+        <div class="card-img-wrap"><img src="americano.jpeg" alt="Hot Americano" loading="lazy" /></div>
+      </div>
+
+      <div class="menu-card visible" data-cat="hot" data-name="cappuccino">
+        <div class="card-info">
+          <div class="card-name" data-en="Cappuccino" data-ar="كابتشينو">Cappuccino</div>
+          <div class="card-desc" data-en="Espresso with milk foam — balanced, smooth, and classic." data-ar="إسبريسو مع رغوة حليب — متوازن وكلاسيكي.">Espresso with milk foam — balanced, smooth, and classic.</div>
+          <div class="card-price">250,000 LL</div>
+        </div>
+        <div class="card-img-wrap"><img src="cappuccino.jpeg" alt="Cappuccino" loading="lazy" /></div>
+      </div>
+
+      <div class="menu-card visible" data-cat="hot" data-name="nescafé instant coffee">
+        <div class="card-info">
+          <div class="card-name" data-en="Nescafé" data-ar="نسكافيه">Nescafé</div>
+          <div class="card-desc" data-en="Simple instant coffee — warm, familiar, and easy." data-ar="نسكافيه بسيط — دافئ وسهل ومألوف.">Simple instant coffee — warm, familiar, and easy.</div>
+          <div class="card-price">250,000 LL</div>
+        </div>
+        <div class="card-img-wrap"><img src="nescafe.jpeg" alt="Nescafé" loading="lazy" /></div>
+      </div>
+
+      <div class="menu-card visible" data-cat="hot" data-name="nescafé coffee mate instant">
+        <div class="card-info">
+          <div class="card-name" data-en="Nescafé CoffeeMate" data-ar="نسكافيه كوفي ميت">Nescafé Coffee Mate</div>
+          <div class="card-desc" data-en="Classic Nescafé blended with creamy Coffee Mate — smooth and comforting." data-ar="نسكافيه كلاسيكي مع كوفي ميت كريمي — ناعم ومريح.">Classic Nescafé blended with creamy Coffee Mate — smooth and comforting.</div>
+          <div class="card-price">200,000 LL</div>
+        </div>
+        <div class="card-img-wrap"><img src="nescafe.jpeg" alt="Nescafé Coffee Mate" loading="lazy" /></div>
+      </div>
+
+      <div class="menu-card visible" data-cat="hot" data-name="cortado">
+        <div class="card-info">
+          <div class="card-name" data-en="Cortado" data-ar="كورتادو">Cortado</div>
+          <div class="card-desc" data-en="Small strong coffee with a smooth balance." data-ar="قهوة صغيرة قوية ومتوازنة.">Small strong coffee with a smooth balance.</div>
+          <div class="card-price">250,000 LL</div>
+        </div>
+        <div class="card-img-wrap"><img src="cortado.jpeg" alt="Cortado" loading="lazy" /></div>
+      </div>
+
+      <div class="menu-card visible" data-cat="hot" data-name="latte">
+        <div class="card-info">
+          <div class="card-name" data-en="Latte" data-ar="لاتيه">Latte</div>
+          <div class="card-desc" data-en="Smooth coffee with a soft creamy taste." data-ar="قهوة ناعمة بطعم كريمي خفيف.">Smooth coffee with a soft creamy taste.</div>
+          <div class="card-price">250,000 LL</div>
+        </div>
+        <div class="card-img-wrap"><img src="latte.jpeg" alt="Latte" loading="lazy" /></div>
+      </div>
+
+      <div class="menu-card visible" data-cat="hot" data-name="spanish latte hot">
+        <div class="card-info">
+          <div class="card-name" data-en="Spanish Latte" data-ar="سبانيش لاتيه">Spanish Latte</div>
+          <div class="card-desc" data-en="Sweet creamy coffee with a rich taste." data-ar="قهوة حلوة وكريمية بطعم غني.">Sweet creamy coffee with a rich taste.</div>
+          <div class="card-price">350,000 LL</div>
+        </div>
+        <div class="card-img-wrap"><img src="spanishlatte.jpeg" alt="Spanish Latte" loading="lazy" /></div>
+      </div>
+
+      <div class="menu-card visible" data-cat="hot" data-name="flavored latte hot caramel vanilla hazelnut">
+        <div class="card-info">
+          <div class="card-name" data-en="Flavored Latte" data-ar="لاتيه بنكهة">Flavored Latte</div>
+          <div class="card-desc" data-en="Add Caramel, Vanilla or Hazelnut to your latte." data-ar="أضف نكهة كراميل، فانيلا أو بندق.">Add Caramel, Vanilla or Hazelnut to your latte.</div>
+          <div class="card-price">350,000 LL</div>
+        </div>
+        <div class="card-img-wrap"><img src="latte.jpeg" alt="Flavored Latte" loading="lazy" /></div>
+      </div>
+
+      <div class="menu-card visible" data-cat="hot" data-name="mocha latte">
+        <div class="card-info">
+          <div class="card-name" data-en="Mocha Latte" data-ar="موكا لاتيه">Mocha Latte</div>
+          <div class="card-desc" data-en="A smooth blend of espresso, milk, and chocolate." data-ar="مزيج ناعم من الإسبريسو والحليب والشوكولاتة.">A smooth blend of espresso, milk, and chocolate.</div>
+          <div class="card-price">370,000 LL</div>
+        </div>
+        <div class="card-img-wrap"><img src="mocha-latte.jpeg" alt="Mocha Latte" loading="lazy" /></div>
+      </div>
+
+      <div class="menu-card visible" data-cat="hot" data-name="flat white">
+        <div class="card-info">
+          <div class="card-name" data-en="Flat White" data-ar="فلات وايت">Flat White</div>
+          <div class="card-desc" data-en="Strong coffee with a smooth creamy touch." data-ar="قهوة قوية مع لمسة كريمية ناعمة.">Strong coffee with a smooth creamy touch.</div>
+          <div class="card-price">200,000 LL</div>
+        </div>
+        <div class="card-img-wrap"><img src="flatwhite.jpeg" alt="Flat White" loading="lazy" /></div>
+      </div>
+
+      <div class="menu-card visible" data-cat="hot" data-name="hot chocolate">
+        <div class="card-info">
+          <div class="card-name" data-en="Hot Chocolate" data-ar="شوكولاتة ساخنة">Hot Chocolate</div>
+          <div class="card-desc" data-en="Melted chocolate with milk — rich, warm, and smooth." data-ar="شوكولاتة مع حليب — غنية ودافئة وناعمة.">Melted chocolate with milk — rich, warm, and smooth.</div>
+          <div class="card-price">250,000 LL</div>
+        </div>
+        <div class="card-img-wrap"><img src="hotchocolate.jpeg" alt="Hot Chocolate" loading="lazy" /></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── ICED COFFEE ── -->
+  <div class="menu-section" data-section="cold">
+    <h2 class="section-title" data-en="Iced Coffee" data-ar="قهوة باردة">Iced Coffee</h2>
+    <div class="menu-grid">
+
+      <div class="menu-card visible" data-cat="cold" data-name="iced latte">
+        <div class="card-info">
+          <div class="card-name" data-en="Iced Latte" data-ar="لاتيه مثلج">Iced Latte</div>
+          <div class="card-desc" data-en="Smooth cold coffee with a refreshing taste." data-ar="قهوة باردة ناعمة ومنعشة.">Smooth cold coffee with a refreshing taste.</div>
+          <div class="card-price">270,000 LL</div>
+        </div>
+        <div class="card-img-wrap"><img src="iced-latte.jpeg" alt="Iced Latte" loading="lazy" /></div>
+      </div>
+
+      <div class="menu-card visible" data-cat="cold" data-name="flavored iced latte caramel vanilla hazelnut">
+        <div class="card-info">
+          <div class="card-name" data-en="Flavored Iced Latte" data-ar="لاتيه مثلج بنكهة">Flavored Iced Latte</div>
+          <div class="card-desc" data-en="Add Caramel, Vanilla or Hazelnut." data-ar="أضف نكهة كراميل، فانيلا أو بندق.">Add Caramel, Vanilla or Hazelnut.</div>
+          <div class="card-price">370,000 LL</div>
+        </div>
+        <div class="card-img-wrap"><img src="iced-latte.jpeg" alt="Flavored Iced Latte" loading="lazy" /></div>
+      </div>
+
+      <div class="menu-card visible" data-cat="cold" data-name="iced spanish latte">
+        <div class="card-info">
+          <div class="card-name" data-en="Iced Spanish Latte" data-ar="لاتيه إسباني مثلج">Iced Spanish Latte</div>
+          <div class="card-desc" data-en="Sweet creamy iced coffee with rich flavor." data-ar="قهوة مثلجة حلوة وكريمية وغنية.">Sweet creamy iced coffee with rich flavor.</div>
+          <div class="card-price">370,000 LL</div>
+        </div>
+        <div class="card-img-wrap"><img src="iced-spanish-latte.jpeg" alt="Iced Spanish Latte" loading="lazy" /></div>
+      </div>
+
+      <div class="menu-card visible" data-cat="cold" data-name="iced mocha latte">
+        <div class="card-info">
+          <div class="card-name" data-en="Iced Mocha Latte" data-ar="موكا مثلج">Iced Mocha Latte</div>
+          <div class="card-desc" data-en="Chocolate coffee served cold and smooth." data-ar="قهوة شوكولاتة باردة وناعمة.">Chocolate coffee served cold and smooth.</div>
+          <div class="card-price">370,000 LL</div>
+        </div>
+        <div class="card-img-wrap"><img src="iced-mocha.jpeg" alt="Iced Mocha" loading="lazy" /></div>
+      </div>
+
+      <div class="menu-card visible" data-cat="cold" data-name="iced americano">
+        <div class="card-info">
+          <div class="card-name" data-en="Iced Americano" data-ar="أمريكانو مثلج">Iced Americano</div>
+          <div class="card-desc" data-en="Strong cold coffee, clean and refreshing." data-ar="قهوة باردة قوية.">Strong cold coffee, clean and refreshing.</div>
+          <div class="card-price">150,000 LL</div>
+        </div>
+        <div class="card-img-wrap"><img src="iced-americano.jpeg" alt="Iced Americano" loading="lazy" /></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── MATCHA ── -->
+  <div class="menu-section" data-section="matcha">
+    <h2 class="section-title" data-en="Matcha" data-ar="ماتشا">Matcha</h2>
+    <div class="menu-grid">
+
+      <div class="menu-card visible" data-cat="matcha" data-name="matcha Latte">
+        <div class="card-info">
+          <div class="card-name" data-en="Matcha Latte" data-ar="ماتشا لاتيه">Matcha Latte</div>
+          <div class="card-desc" data-en="Whisked ceremonial-grade matcha blended with velvety steamed milk — earthy, smooth, and warming." data-ar="ماتشا طرازية ممزوجة بالحليب المبخر الكريمي — ترابية وناعمة ودافئة.">Whisked ceremonial-grade matcha blended with velvety steamed milk — earthy, smooth, and warming.</div>
+          <div class="card-price">350,000 LL</div>
+        </div>
+        <div class="card-img-wrap"><img src="hot-matcha.jpeg" alt="Matcha Latte" loading="lazy" /></div>
+      </div>
+
+      <div class="menu-card visible" data-cat="matcha" data-name="iced vanilla matcha">
+        <div class="card-info">
+          <div class="card-name" data-en="Iced Vanilla Matcha" data-ar="فانيلا ماتشا مثلج">Iced Vanilla Matcha</div>
+          <div class="card-desc" data-en="Chilled matcha poured over ice with cool milk — a refreshing green escape in every glass." data-ar="ماتشا مبرد مصبوب على الثلج مع الحليب البارد — متعة خضراء منعشة في كل كأس.">Chilled matcha poured over ice with cool milk — a refreshing green escape in every glass.</div>
+          <div class="card-price">400,000 LL</div>
+        </div>
+        <div class="card-img-wrap"><img src="iced-matcha.png" alt="Iced Vanilla Matcha" loading="lazy" /></div>
+      </div>
+
+      <div class="menu-card visible" data-cat="matcha" data-name="iced strawberry matcha">
+        <div class="card-info">
+          <div class="card-name" data-en="Iced Strawberry Matcha" data-ar="ماتشا فراولة مثلج">Iced Strawberry Matcha</div>
+          <div class="card-desc" data-en="Layers of fresh strawberry syrup meet ceremonial matcha over ice — a vibrant, fruity twist on a classic." data-ar="طبقات من شراب الفراولة الطازج مع ماتشا احتفالية على الثلج — لمسة فاكهية نابضة بالحياة.">Layers of fresh strawberry syrup meet ceremonial matcha over ice — a vibrant, fruity twist on a classic.</div>
+          <div class="card-price">450,000 LL</div>
+        </div>
+        <div class="card-img-wrap"><img src="iced-strawberry-matcha.jpeg" alt="Iced Strawberry Matcha" loading="lazy" /></div>
+      </div>
+
+      <div class="menu-card visible" data-cat="matcha" data-name="iced mango matcha">
+        <div class="card-info">
+          <div class="card-name" data-en="Iced Mango Matcha" data-ar="ماتشا مانغو مثلج">Iced Mango Matcha</div>
+          <div class="card-desc" data-en="Tropical mango sweetness swirled with earthy matcha and ice — sunshine in a glass." data-ar="حلاوة المانغو الاستوائية ممزوجة مع الماتشا والثلج — شمس في كأس.">Tropical mango sweetness swirled with earthy matcha and ice — sunshine in a glass.</div>
+          <div class="card-price">450,000 LL</div>
+        </div>
+        <div class="card-img-wrap"><img src="iced-mango-matcha.jpeg" alt="Iced Mango Matcha" loading="lazy" /></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── FRAPPES ── -->
+  <div class="menu-section" data-section="frappes">
+    <h2 class="section-title" data-en="Frappes" data-ar="فرابيه">Frappes</h2>
+    <div class="menu-grid">
+
+      <div class="menu-card visible" data-cat="frappes" data-name="caramel frappe">
+        <div class="card-info">
+          <div class="card-name" data-en="Caramel Frappe" data-ar="فرابيه كراميل">Caramel Frappe</div>
+          <div class="card-desc" data-en="Blended coffee with caramel — creamy, sweet, and indulgent." data-ar="قهوة مخلوطة مع كراميل — كريمية وحلوة وغنية.">Blended coffee with caramel — creamy, sweet, and indulgent.</div>
+          <div class="card-price">370,000 LL</div>
+        </div>
+        <div class="card-img-wrap"><img src="caramel-frappe.jpeg" alt="Caramel Frappe" loading="lazy" /></div>
+      </div>
+
+      <div class="menu-card visible" data-cat="frappes" data-name="dark mocha frappe">
+        <div class="card-info">
+          <div class="card-name" data-en="Dark Mocha Frappe" data-ar="فرابيه موكا داكن">Dark Mocha Frappe</div>
+          <div class="card-desc" data-en="Rich dark chocolate meets bold espresso in a chilled, blended dream — deeply satisfying." data-ar="شوكولاتة داكنة وإسبريسو مع ثلج — غني وقوي ومُرضٍ.">Rich dark chocolate meets bold espresso in a chilled, blended dream — deeply satisfying.</div>
+          <div class="card-price">370,000 LL</div>
+        </div>
+        <div class="card-img-wrap"><img src="dark-mocha-frappe.jpeg" alt="Dark Mocha Frappe" loading="lazy" /></div>
+      </div>
+
+      <div class="menu-card visible" data-cat="frappes" data-name="white mocha frappe">
+        <div class="card-info">
+          <div class="card-name" data-en="White Mocha Frappe" data-ar="فرابيه وايت موكا">White Mocha Frappe</div>
+          <div class="card-desc" data-en="Smooth white chocolate blended with espresso, milk, and ice — creamy and sweet." data-ar="شوكولاتة بيضاء مع إسبريسو وحليب — ناعمة وحلوة.">Smooth white chocolate blended with espresso, milk, and ice — creamy and sweet.</div>
+          <div class="card-price">370,000 LL</div>
+        </div>
+        <div class="card-img-wrap"><img src="white-mocha-frappe.jpeg" alt="White Mocha Frappe" loading="lazy" /></div>
+      </div>
+
+      <div class="menu-card visible" data-cat="frappes" data-name="vanilla frappe">
+        <div class="card-info">
+          <div class="card-name" data-en="Vanilla Frappe" data-ar="فرابيه فانيلا">Vanilla Frappe</div>
+          <div class="card-desc" data-en="Vanilla blended coffee — creamy, smooth, and simply satisfying." data-ar="قهوة فانيلا مخلوطة — ناعمة وكريمية.">Vanilla blended coffee — creamy, smooth, and simply satisfying.</div>
+          <div class="card-price">370,000 LL</div>
+        </div>
+        <div class="card-img-wrap"><img src="vanilla-frappe.jpeg" alt="Vanilla Frappe" loading="lazy" /></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── MILKSHAKES ── -->
+  <div class="menu-section" data-section="milkshakes">
+    <h2 class="section-title" data-en="Milkshakes" data-ar="ميلك شيك">Milkshakes</h2>
+    <div class="menu-grid">
+
+      <div class="menu-card visible" data-cat="milkshakes" data-name="chocolate milkshake">
+        <div class="card-info">
+          <div class="card-name" data-en="Chocolate Milkshake" data-ar="ميلك شيك شوكولاتة">Chocolate Milkshake</div>
+          <div class="card-desc" data-en="Thick chocolate shake — rich, cold, and creamy." data-ar="شيك شوكولاتة كثيف — غني وبارد وكريمي.">Thick chocolate shake — rich, cold, and creamy.</div>
+          <div class="card-price">350,000 LL</div>
+        </div>
+        <div class="card-img-wrap"><img src="chocolate-milkshake.jpeg" alt="Chocolate Milkshake" loading="lazy" /></div>
+      </div>
+
+      <div class="menu-card visible" data-cat="milkshakes" data-name="strawberry milkshake">
+        <div class="card-info">
+          <div class="card-name" data-en="Strawberry Milkshake" data-ar="ميلك شيك فراولة">Strawberry Milkshake</div>
+          <div class="card-desc" data-en="Creamy strawberry shake — sweet, smooth, and classic." data-ar="شيك فراولة كريمي — حلو وناعم وكلاسيكي.">Creamy strawberry shake — sweet, smooth, and classic.</div>
+          <div class="card-price">350,000 LL</div>
+        </div>
+        <div class="card-img-wrap"><img src="strawberry-milkshake.jpeg" alt="Strawberry Milkshake" loading="lazy" /></div>
+      </div>
+
+      <div class="menu-card visible" data-cat="milkshakes" data-name="vanilla milkshake">
+        <div class="card-info">
+          <div class="card-name" data-en="Vanilla Milkshake" data-ar="ميلك شيك فانيلا">Vanilla Milkshake</div>
+          <div class="card-desc" data-en="Classic vanilla shake — smooth, simple, and creamy." data-ar="شيك فانيلا كلاسيكي — ناعم وبسيط وكريمي.">Classic vanilla shake — smooth, simple, and creamy.</div>
+          <div class="card-price">350,000 LL</div>
+        </div>
+        <div class="card-img-wrap"><img src="vanilla-milkshake.jpeg" alt="Vanilla Milkshake" loading="lazy" /></div>
+      </div>
+
+      <div class="menu-card visible" data-cat="milkshakes" data-name="lotus milkshake">
+        <div class="card-info">
+          <div class="card-name" data-en="Lotus Milkshake" data-ar="ميلك شيك لوتس">Lotus Milkshake</div>
+          <div class="card-desc" data-en="Lotus cookie shake — sweet, spiced, and addictive." data-ar="شيك لوتس — حلو ومكرمل ومميز.">Lotus cookie shake — sweet, spiced, and addictive.</div>
+          <div class="card-price">350,000 LL</div>
+        </div>
+        <div class="card-img-wrap"><img src="lotus-milkshake.jpeg" alt="Lotus Milkshake" loading="lazy" /></div>
+      </div>
+
+      <div class="menu-card visible" data-cat="milkshakes" data-name="toffee milkshake">
+        <div class="card-info">
+          <div class="card-name" data-en="Toffee Milkshake" data-ar="ميلك شيك توفي">Toffee Milkshake</div>
+          <div class="card-desc" data-en="Toffee shake — rich, sweet, and comforting." data-ar="شيك توفي — غني وحلو ومريح.">Toffee shake — rich, sweet, and comforting.</div>
+          <div class="card-price">350,000 LL</div>
+        </div>
+        <div class="card-img-wrap"><img src="toffee-milkshake.jpeg" alt="Toffee Milkshake" loading="lazy" /></div>
+      </div>
+
+      <div class="menu-card visible" data-cat="milkshakes" data-name="cookies milkshake oreo">
+        <div class="card-info">
+          <div class="card-name" data-en="Oreo Milkshake" data-ar="ميلك شيك كوكيز">Oreo Milkshake</div>
+          <div class="card-desc" data-en="Blended Oreo cookies with ice cream and milk — a rich cookies-and-cream classic." data-ar="أوريو ممزوج مع آيس كريم وحليب — كلاسيك غني بطعم الكوكيز والكريمة.">Blended Oreo cookies with ice cream and milk — a rich cookies-and-cream classic.</div>
+          <div class="card-price">350,000 LL</div>
+        </div>
+        <div class="card-img-wrap"><img src="oreo-milkshake.jpeg" alt="Oreo Milkshake" loading="lazy" /></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── SMOOTHIES ── -->
+  <div class="menu-section" data-section="smoothies">
+    <h2 class="section-title" data-en="Smoothies" data-ar="سموذي">Smoothies</h2>
+    <div class="menu-grid">
+
+      <div class="menu-card visible" data-cat="smoothies" data-name="mango smoothie">
+        <div class="card-info">
+          <div class="card-name" data-en="Mango Smoothie" data-ar="سموذي مانغو">Mango Smoothie</div>
+          <div class="card-desc" data-en="Ripe Alphonso mangoes blended to silky perfection — thick, tropical, and naturally sweet." data-ar="مانغو ناضجة ممزوجة بسلاسة — كثيف واستوائي وحلو بشكل طبيعي.">Ripe Alphonso mangoes blended to silky perfection — thick, tropical, and naturally sweet.</div>
+          <div class="card-price">350,000 LL</div>
+        </div>
+        <div class="card-img-wrap"><img src="mango-smoothie.jpeg" alt="Mango Smoothie" loading="lazy" /></div>
+      </div>
+
+      <div class="menu-card visible" data-cat="smoothies" data-name="strawberry smoothie">
+        <div class="card-info">
+          <div class="card-name" data-en="Strawberry Smoothie" data-ar="سموذي فراولة">Strawberry Smoothie</div>
+          <div class="card-desc" data-en="Fresh strawberries blended with creamy milk for a luscious, rosy sip that brightens any moment." data-ar="فراولة طازجة ممزوجة مع حليب كريمي لرشفة رائعة ومبهجة.">Fresh strawberries blended with creamy milk for a luscious, rosy sip that brightens any moment.</div>
+          <div class="card-price">350,000 LL</div>
+        </div>
+        <div class="card-img-wrap"><img src="strawberry-smoothie.jpeg" alt="Strawberry Smoothie" loading="lazy" /></div>
+      </div>
+
+      <div class="menu-card visible" data-cat="smoothies" data-name="peach smoothie">
+        <div class="card-info">
+          <div class="card-name" data-en="Peach Smoothie" data-ar="سموذي خوخ">Peach Smoothie</div>
+          <div class="card-desc" data-en="Sun-ripened peaches blended into a velvety, golden drink — delicate, fragrant, and utterly refreshing." data-ar="خوخ ناضج ممزوج بمشروب ذهبي ناعم — رقيق وعطري ومنعش للغاية.">Sun-ripened peaches blended into a velvety, golden drink — delicate, fragrant, and utterly refreshing.</div>
+          <div class="card-price">350,000 LL</div>
+        </div>
+        <div class="card-img-wrap"><img src="peach-smoothie.jpeg" alt="Peach Smoothie" loading="lazy" /></div>
+      </div>
+
+      <div class="menu-card visible" data-cat="smoothies" data-name="passion fruit smoothie">
+        <div class="card-info">
+          <div class="card-name" data-en="Passion Fruit Smoothie" data-ar="سموذي فاكهة الشغف">Passion Fruit Smoothie</div>
+          <div class="card-desc" data-en="Tangy passion fruit bursting with tropical aroma, blended into an exotic, mood-lifting drink." data-ar="باشن فروت سموذي — حامض واستوائي ومنعش.">Tangy passion fruit bursting with tropical aroma, blended into an exotic, mood-lifting drink.</div>
+          <div class="card-price">350,000 LL</div>
+        </div>
+        <div class="card-img-wrap"><img src="passion-fruit-smoothie.jpeg" alt="Passion Fruit Smoothie" loading="lazy" /></div>
+      </div>
+
+      <div class="menu-card visible" data-cat="smoothies" data-name="mixed fruits smoothie">
+        <div class="card-info">
+          <div class="card-name" data-en="Mixed Fruits Smoothie" data-ar="سموذي فواكه مشكلة">Mixed Fruits Smoothie</div>
+          <div class="card-desc" data-en="A refreshing blend of seasonal fruits — sweet, colorful, and full of natural flavor." data-ar="مزيج منعش من الفواكه الموسمية — حلو ومنعش ومليء بالنكهة الطبيعية.">A refreshing blend of seasonal fruits — sweet, colorful, and full of natural flavor.</div>
+          <div class="card-price">350,000 LL</div>
+        </div>
+        <div class="card-img-wrap"><img src="mixed-fruits-smoothie.jpeg" alt="Mixed Fruits Smoothie" loading="lazy" /></div>
+      </div>
+
+      <div class="menu-card visible" data-cat="smoothies" data-name="kiwi smoothie">
+        <div class="card-info">
+          <div class="card-name" data-en="Kiwi Smoothie" data-ar="سموذي كيوي">Kiwi Smoothie</div>
+          <div class="card-desc" data-en="Bright, tangy kiwi blended into a vibrant green drink — refreshing, zesty, and naturally energizing." data-ar="كيوي منعش ممزوج في مشروب أخضر نابض بالحياة — منعش وحامض وطبيعي.">Bright, tangy kiwi blended into a vibrant green drink — refreshing, zesty, and naturally energizing.</div>
+          <div class="card-price">350,000 LL</div>
+        </div>
+        <div class="card-img-wrap"><img src="kiwi-smoothie.jpg" alt="Kiwi Smoothie" loading="lazy" /></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── SWEETS / DESSERTS ── -->
+  <div class="menu-section" data-section="sweets">
+    <h2 class="section-title" data-en="Desserts" data-ar="حلويات">Desserts</h2>
+    <div class="menu-grid">
+
+      <div class="menu-card visible" data-cat="sweets" data-name="cookies">
+        <div class="card-info">
+          <div class="card-name" data-en="Cookies" data-ar=" كوكيز محشي">Cookies with filling</div>
+          <div class="card-desc" data-en="Soft baked cookies with fillings-lotus, nutella, oreo." data-ar="كوكيز طري مع حشوة-لوتس، نوتيلا، أوريو.">Soft baked cookies with filling-Lotus, nutella, oreo.</div>
+          <div class="card-price">200,000 LL</div>
+        </div>
+        <div class="card-img-wrap"><img src="cookies.jpg" alt="Cookies" loading="lazy" /></div>
+      </div>
+
+      <div class="menu-card visible" data-cat="sweets" data-name="cookies">
+        <div class="card-info">
+          <div class="card-name" data-en="Cookies" data-ar="كوكيز">Cookies</div>
+          <div class="card-desc" data-en="Soft baked cookies with a sweet taste." data-ar="كوكيز طري بطعم حلو.">Soft baked cookies with a sweet taste.</div>
+          <div class="card-price">200,000 LL</div>
+        </div>
+        <div class="card-img-wrap"><img src="regular-cookies.jpeg" alt="Cookies" loading="lazy" /></div>
+      </div>
+
+      <div class="menu-card visible" data-cat="sweets" data-name="brownie chocolate">
+        <div class="card-info">
+          <div class="card-name" data-en="Brownie" data-ar="براوني">Brownie</div>
+          <div class="card-desc" data-en="Dense, fudgy dark chocolate brownie — a chocolate lover's dream." data-ar="براوني شوكولاتة غني وطري.">Dense, fudgy dark chocolate brownie — a chocolate lover's dream.</div>
+          <div class="card-price">250,000 LL</div>
+        </div>
+        <div class="card-img-wrap"><img src="brownie.jpeg" alt="Brownie" loading="lazy" /></div>
+      </div>
+
+      <div class="menu-card visible" data-cat="sweets" data-name="chocolate date tamr">
+        <div class="card-info">
+          <div class="card-name" data-en="Chocolate Date" data-ar="تمر بالشوكولاتة">Chocolate Date</div>
+          <div class="card-desc" data-en="Sweet dates covered in rich chocolate." data-ar="تمر حلو مغطى بشوكولاتة غنية.">Sweet dates covered in rich chocolate.</div>
+          <div class="card-price">180,000 LL</div>
+        </div>
+        <div class="card-img-wrap"><img src="chocolate-date.jpeg" alt="Chocolate Date" loading="lazy" /></div>
+      </div>
+
+      <div class="menu-card visible" data-cat="sweets" data-name="eclair pastry">
+        <div class="card-info">
+          <div class="card-name" data-en="Éclair" data-ar="إكلير">Éclair</div>
+          <div class="card-desc" data-en="Light choux pastry filled with creamy custard and topped with chocolate glaze." data-ar="عجينة شو محشوة بكريمة وغلاف شوكولاتة.">Light choux pastry filled with creamy custard and topped with chocolate glaze.</div>
+          <div class="card-price">250,000 LL</div>
+        </div>
+        <div class="card-img-wrap"><img src="eclaire.jpeg" alt="Éclair" loading="lazy" /></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── SHISHA ── -->
+  <div class="menu-section" data-section="shisha">
+    <h2 class="section-title" data-en="Shisha" data-ar="شيشة">Shisha</h2>
+    <div class="menu-grid">
+
+      <div class="menu-card visible" data-cat="shisha" data-name="tefehten apple shisha">
+        <div class="card-info">
+          <div class="card-name" data-en="Tefehten" data-ar="تفاحتين">Tefehten</div>
+          <div class="card-desc" data-en="A classic apple-flavored shisha — smooth, light, and mildly sweet." data-ar="شيشة تفاح كلاسيكية — ناعمة وخفيفة وحلوة.">A classic apple-flavored shisha — smooth, light, and mildly sweet.</div>
+          <div class="card-price">450,000 LL</div>
+        </div>
+        <div class="shisha-icon">🍎</div>
+      </div>
+
+      <div class="menu-card visible" data-cat="shisha" data-name="hamod na3na3 lemon mint shisha">
+        <div class="card-info">
+          <div class="card-name" data-en="Hamod w Na3na3" data-ar="حامض ونعناع">Hamod w Na3na3</div>
+          <div class="card-desc" data-en="Zesty lemon paired with fresh mint — a refreshing, tangy shisha blend." data-ar="حامض منعش مع نعناع طازج — مزيج شيشة منعش وحيوي.">Zesty lemon paired with fresh mint — a refreshing, tangy shisha blend.</div>
+          <div class="card-price">450,000 LL</div>
+        </div>
+        <div class="shisha-icon">🍋🌿</div>
+      </div>
+
+    </div>
+  </div>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    
+    <div class="footer-col">
+      <h3 data-en="Visit Us" data-ar="زورونا">Visit Us</h3>
+      <a href="https://maps.app.goo.gl/ver4BCym97kcoeZz5" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+        <span data-en="Get Directions" data-ar="الحصول على الاتجاهات">Get Directions</span>
+      </a>
+      <p>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        <span data-en="7:30 AM – Midnight, Daily" data-ar="يومياً 7:30 صباحاً – منتصف الليل">7:30 AM – Midnight, Daily</span>
+      </p>
+    </div>
+    <div class="footer-col">
+      <h3 data-en="Follow Us" data-ar="تابعونا">Follow Us</h3>
+      <a href="https://www.instagram.com/riwak.coffeeshop" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4.5"/></svg>
+        Instagram
+      </a>
+      <a href="https://www.facebook.com/profile.php?id=61585552270714" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 10-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.49-3.89 3.77-3.89 1.09 0 2.23.19 2.23.19v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.77l-.44 2.89h-2.33v6.99A10 10 0 0022 12z"/></svg>
+        Facebook
+      </a>
+      <a href="https://www.tiktok.com/@riwak_coffeeshop?_r=1&_t=ZS-96vu0E9LRZ4" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.77h-3.13v13.24a2.8 2.8 0 11-2.8-2.8c.31 0 .61.05.89.14V9.32a5.94 5.94 0 00-.89-.07A5.94 5.94 0 1015.82 15V8.33a7.93 7.93 0 004.64 1.49V6.69h-.87z"/></svg>
+        TikTok
+      </a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Riwak Coffeeshop · رِواق. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+  // ── Language toggle ──
+  let currentLang = 'en';
+  function toggleLang() {
+    currentLang = currentLang === 'en' ? 'ar' : 'en';
+    const isAr = currentLang === 'ar';
+    document.documentElement.setAttribute('lang', currentLang);
+    document.documentElement.setAttribute('dir', isAr ? 'rtl' : 'ltr');
+    document.getElementById('lang-toggle').textContent = isAr ? 'English' : 'العربية';
+    document.getElementById('search-input').placeholder = isAr ? 'ابحث عن مشروب...' : 'Search drinks...';
+    document.querySelectorAll('[data-en]').forEach(el => {
+      el.textContent = el.getAttribute(isAr ? 'data-ar' : 'data-en');
+    });
+  }
+
+  // ── Category filter ──
+  let activeCategory = 'all';
+  function setCategory(cat, btn) {
+    activeCategory = cat;
+    document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    filterItems();
+
+    const main = document.getElementById('menu-main');
+    const filterBar = document.querySelector('.filter-bar');
+    const offset = main.getBoundingClientRect().top + window.scrollY - filterBar.offsetHeight - 8;
+    window.scrollTo({ top: offset, behavior: 'smooth' });
+  }
+
+  // ── Search + filter ──
+  function filterItems() {
+    const query = document.getElementById('search-input').value.toLowerCase().trim();
+    document.querySelectorAll('.menu-card').forEach(card => {
+      const catMatch = activeCategory === 'all' || card.getAttribute('data-cat') === activeCategory;
+      const searchMatch = !query || card.getAttribute('data-name').toLowerCase().includes(query);
+      const show = catMatch && searchMatch;
+      card.classList.toggle('hidden', !show);
+      if (show) {
+        card.classList.remove('visible');
+        void card.offsetWidth;
+        card.classList.add('visible');
+      }
+    });
+    document.querySelectorAll('.menu-section').forEach(section => {
+      const hasVisible = section.querySelectorAll('.menu-card:not(.hidden)').length > 0;
+      section.style.display = hasVisible ? '' : 'none';
+    });
+  }
+
+  // ── Hero slideshow ──
+  let currentSlide = 0;
+  const slides = document.querySelectorAll('.hero-images .slide');
+  function showNextSlide() {
+    slides[currentSlide].classList.remove('active');
+    currentSlide = (currentSlide + 1) % slides.length;
+    slides[currentSlide].classList.add('active');
+  }
+  setInterval(showNextSlide, 2800);
+</script>
+</body>
+</html>
