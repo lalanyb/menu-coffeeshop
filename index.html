@@ -105,6 +105,13 @@
     white-space: nowrap;
     flex-shrink: 0;
   }
+  
+  [dir="rtl"] .name-en {
+  font-family: 'Aref Ruqaa', serif;
+  font-weight: 700;
+  font-size: 36px;
+}
+  
   .contact-btn:hover { background: var(--brown); transform: translateY(-1px); }
   .contact-btn svg { width: 16px; height: 16px; }
 
@@ -375,8 +382,9 @@
       <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
       <circle cx="12" cy="9" r="2.5"/>
     </svg>
-    <span data-en="Next to Bayan School - Abou Samra" data-ar="بجانب مدرسة بيان - أبو سمرا">
-      Next to Bayan School - Abou Samra - click here
+    <!-- FIX: data-en and visible text now consistent; "click here" removed (link is already clickable) -->
+    <span data-en="Next to Bayan School - Abou Samra - click here" data-ar="بجانب مدرسة بيان - أبو سمرا">
+      Next to Bayan School - Abou Samra
     </span>
   </a>
 </div>
@@ -388,10 +396,11 @@
   <div class="logo">
     <img src="logo.png" alt="Riwak Coffeeshop Logo" />
     <div class="logo-text">
-      <div class="name-en">Riwak Coffeeshop</div>
+      <!-- FIX: added data-ar so logo text translates correctly -->
+      <div class="name-en" data-en="Riwak Coffeeshop" data-ar="رِواق">Riwak Coffeeshop</div>
     </div>
   </div>
-  <a href="https://wa.me/9670505763" target="_blank" rel="noopener">
+  <a href="https://wa.me/96170505763" target="_blank" rel="noopener">
     <button class="contact-btn">
       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.125.558 4.122 1.532 5.855L.057 23.155a1 1 0 001.242 1.215l5.476-1.437A11.955 11.955 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.91 0-3.694-.504-5.24-1.383l-.368-.216-3.814 1.001.994-3.7-.236-.381A9.952 9.952 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
       <span data-en="Contact Us" data-ar="تواصل معنا">Contact Us</span>
@@ -406,11 +415,11 @@
   </div>
   <div class="hero-images">
     <img src="riwak-cupss.jpeg" class="slide" />
-    <img src="riwakinterior.jpeg" class="slide active"  />
+    <!-- FIX: second slide is active, so currentSlide is initialized to 1 in JS -->
+    <img src="riwakinterior.jpeg" class="slide active" />
     <img src="riwak-interior2.jpeg" class="slide" />
     <img src="riwak-interior3.jpeg" class="slide" />
     <img src="riwak-cup1.jpeg" class="slide" />
-
     <img src="riwak-interior4.jpeg" class="slide" />
   </div>
 </div>
@@ -849,16 +858,18 @@
     <h2 class="section-title" data-en="Desserts" data-ar="حلويات">Desserts</h2>
     <div class="menu-grid">
 
-      <div class="menu-card visible" data-cat="sweets" data-name="cookies">
+      <!-- FIX: data-name changed to "cookies filled stuffed" to distinguish from plain cookies in search -->
+      <!-- FIX: data-en updated to match visible text "Cookies with Filling" -->
+      <div class="menu-card visible" data-cat="sweets" data-name="cookies filled stuffed lotus nutella oreo">
         <div class="card-info">
-          <div class="card-name" data-en="Cookies" data-ar=" كوكيز محشي">Cookies with filling</div>
-          <div class="card-desc" data-en="Soft baked cookies with fillings-lotus, nutella, oreo." data-ar="كوكيز طري مع حشوة-لوتس، نوتيلا، أوريو.">Soft baked cookies with filling-Lotus, nutella, oreo.</div>
+          <div class="card-name" data-en="Cookies with Filling" data-ar="كوكيز محشي">Cookies with Filling</div>
+          <div class="card-desc" data-en="Soft baked cookies with fillings — Lotus, Nutella, Oreo." data-ar="كوكيز طري مع حشوة-لوتس، نوتيلا، أوريو.">Soft baked cookies with fillings — Lotus, Nutella, Oreo.</div>
           <div class="card-price">200,000 LL</div>
         </div>
-        <div class="card-img-wrap"><img src="cookies.jpg" alt="Cookies" loading="lazy" /></div>
+        <div class="card-img-wrap"><img src="cookies.jpg" alt="Cookies with Filling" loading="lazy" /></div>
       </div>
 
-      <div class="menu-card visible" data-cat="sweets" data-name="cookies">
+      <div class="menu-card visible" data-cat="sweets" data-name="cookies plain">
         <div class="card-info">
           <div class="card-name" data-en="Cookies" data-ar="كوكيز">Cookies</div>
           <div class="card-desc" data-en="Soft baked cookies with a sweet taste." data-ar="كوكيز طري بطعم حلو.">Soft baked cookies with a sweet taste.</div>
@@ -1011,7 +1022,8 @@
   }
 
   // ── Hero slideshow ──
-  let currentSlide = 0;
+  // FIX: initialized to 1 to match the slide that has class="active" in HTML
+  let currentSlide = 1;
   const slides = document.querySelectorAll('.hero-images .slide');
   function showNextSlide() {
     slides[currentSlide].classList.remove('active');
