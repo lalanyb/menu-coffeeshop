@@ -430,8 +430,9 @@
     <button class="cat-btn"        data-cat="frappes"    onclick="setCategory('frappes',this)"    data-en="Frappes"         data-ar="فرابيه">Frappes</button>
     <button class="cat-btn"        data-cat="milkshakes" onclick="setCategory('milkshakes',this)" data-en="Milkshakes"      data-ar="ميلك شيك">Milkshakes</button>
     <button class="cat-btn"        data-cat="smoothies"  onclick="setCategory('smoothies',this)"  data-en="Smoothies"       data-ar="سموذي">Smoothies</button>
-    <button class="cat-btn"        data-cat="sweets"     onclick="setCategory('sweets',this)"     data-en="Desserts"        data-ar="حلويات">Desserts</button>
-    <button class="cat-btn"        data-cat="shisha"     onclick="setCategory('shisha',this)"     data-en="Shisha"          data-ar="شيشة">Shisha</button>
+    <button class="cat-btn" data-cat="sweets" onclick="setCategory('sweets',this)" data-en="Desserts" data-ar="حلويات">Desserts</button>
+    <button class="cat-btn" data-cat="snacks" onclick="setCategory('snacks',this)" data-en="Snacks" data-ar="سناكات">Snacks</button>
+    <button class="cat-btn" data-cat="shisha" onclick="setCategory('shisha',this)" data-en="Shisha" data-ar="شيشة">Shisha</button>
   </div>
 </div>
 
@@ -900,6 +901,49 @@
     </div>
   </div>
 
+  <!-- ── SNACKS ── -->
+<div class="menu-section" data-section="snacks">
+  <h2 class="section-title" data-en="Snacks" data-ar="سناكات">Snacks</h2>
+
+  <div class="menu-grid">
+
+    <!-- Croissant -->
+    <div class="menu-card visible" data-cat="snacks" data-name="croissant">
+      <div class="card-info">
+        <div class="card-name" data-en="Croissant" data-ar="كرواسون">Croissant</div>
+        <div class="card-desc"
+             data-en="Freshly baked croissant."
+             data-ar="كرواسون مخبوز طازجاً.">
+          Freshly baked croissant.
+        </div>
+        <div class="card-price">100,000 LL</div>
+      </div>
+
+      <div class="card-img-wrap">
+        <img src="croissant.jpeg" alt="Croissant" loading="lazy" />
+      </div>
+    </div>
+
+    <!-- Turkey & Cheese -->
+    <div class="menu-card visible" data-cat="snacks" data-name="turkey cheese sandwich">
+      <div class="card-info">
+        <div class="card-name" data-en="Turkey & Cheese" data-ar="حبش وجبنة">Turkey & Cheese</div>
+        <div class="card-desc"
+             data-en="Turkey and cheese sandwich."
+             data-ar="ساندويتش حبش وجبنة.">
+          Turkey and cheese sandwich.
+        </div>
+        <div class="card-price">250,000 LL</div>
+      </div>
+
+      <div class="card-img-wrap">
+        <img src="turkey-and-cheese.jpeg" alt="Turkey & Cheese" loading="lazy" />
+      </div>
+    </div>
+
+  </div>
+</div>
+
   <!-- ── SHISHA ── -->
   <div class="menu-section" data-section="shisha">
     <h2 class="section-title" data-en="Shisha" data-ar="شيشة">Shisha</h2>
@@ -973,7 +1017,7 @@
     document.documentElement.setAttribute('lang', currentLang);
     document.documentElement.setAttribute('dir', isAr ? 'rtl' : 'ltr');
     document.getElementById('lang-toggle').textContent = isAr ? 'English' : 'العربية';
-    document.getElementById('search-input').placeholder = isAr ? 'ابحث عن مشروب...' : 'Search drinks...';
+    document.getElementById('search-input').placeholder = isAr ? 'ابحث في القائمة...' : 'Search menu...';
     document.querySelectorAll('[data-en]').forEach(el => {
       el.textContent = el.getAttribute(isAr ? 'data-ar' : 'data-en');
     });
